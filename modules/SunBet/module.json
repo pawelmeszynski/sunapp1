@@ -1,0 +1,15 @@
+{
+    "name": "SunBet",
+    "alias": "sunbet",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 9999,
+    "providers": [
+        "SunAppModules\\SunBet\\Providers\\SunBetServiceProvider",
+        "SunAppModules\\SunBet\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

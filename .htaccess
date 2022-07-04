@@ -1,0 +1,56 @@
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RedirectMatch 403 ^/app/?$
+    RedirectMatch 403 ^/bootstrap/?$
+    RedirectMatch 403 ^/storage/?$
+    RedirectMatch 403 ^/resources/?$
+    RedirectMatch 403 ^/routes/?$
+    RedirectMatch 403 ^/tests/?$
+    RedirectMatch 403 ^/vendor/?$
+
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteCond %{ENV:SUBPATH} ^$
+    RewriteRule ^(.*)$ - [ENV=SUBPATH:$1]
+    # SUBPATH is set to 'misc/subdir/file.xyz'
+
+    RewriteCond %{ENV:CWD} ^$
+    RewriteCond %{ENV:SUBPATH}::%{REQUEST_URI} ^(.*)::(.*?)\1$
+    RewriteRule ^ - [ENV=CWD:%2]
+    # CWD is set to '/path_to/current_folder/'
+
+    RewriteCond %{ENV:FILENAME} ^$
+    RewriteCond %{REQUEST_URI} ^.*/(.*)$
+    RewriteRule ^ - [ENV=FILENAME:%1]
+    # FILENAME is set to 'file.xyz'
+
+    RewriteCond %{REQUEST_URI} !^public
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} ^(.*)$
+    RewriteCond %{DOCUMENT_ROOT}%{ENV:CWD}public/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}%{ENV:CWD}public/$1 -d
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

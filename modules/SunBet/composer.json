@@ -1,0 +1,16 @@
+{
+    "name": "sunapp/sunbet",
+    "type": "sunapp-module",
+    "description": "",
+    "authors": [
+        {
+            "name": "SunGroup",
+            "email": "biuro@sungroup.pl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SunAppModules\\SunBet\\": "."
+        }
+    }
+}
