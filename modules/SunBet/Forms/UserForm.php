@@ -24,7 +24,7 @@ class UserForm extends Form
         ]);
         $this->add('points', 'number', [
             'label' => 'points',
-            'attr' =>['readonly' => false, 'disabled' => true]
+            'attr' => ['readonly' => false, 'disabled' => true]
         ]);
         $this->add('password_confirmation', 'password', [
             'label' => trans('core::users.password_confirmation'),

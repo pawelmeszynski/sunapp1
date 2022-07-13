@@ -12,6 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    public const HOME = '/dashboard';
     protected $namespace = 'SunAppModules\SunBet\Http\Controllers';
     /**
      * Called before routes are registered.

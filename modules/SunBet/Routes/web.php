@@ -12,9 +12,12 @@
 */
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use SunAppModules\SunBet\Entities\SunbetUser;
 
-Route::prefix('sunbet')->name('.')->group(function() {
+Route::prefix('sunbet')->name('.')->group(function () {
     Route::resource('/', 'SunBetController');
     Route::resource('/users', 'UsersController');
     Route::resource('/competitions', 'CompetitionsController')->except('create');
@@ -40,4 +43,6 @@ Route::get('/fetch-data', function () {
 Route::get('/fetch-teams', function () {
     dump(Artisan::call('teams:fetch'));
 });
+Route::get('login/github', 'UsersController@redirectToProvider');
+Route::get('login/github/callback', 'UsersController@handleProviderCallback');
 

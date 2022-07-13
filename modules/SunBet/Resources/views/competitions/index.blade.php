@@ -9,6 +9,9 @@
                         <i class="feather icon-x"></i>
                     </span>
                         <div class="sg-app-menu">
+                            <a href="{{ url('/login/github') }}" class="btn btn-warning">
+                                {{ __('Login with Github') }}
+                            </a>
                             <div class="sidebar-menu-list">
                                 <div class="list-group list-group-messages font-medium-1" v-if="loadedData">
                                     <div @click="getItems('all', searchPhrase, 'click')"
@@ -17,13 +20,6 @@
                                         <i class="font-medium-5 feather icon-align-left mr-50"></i>
                                         @lang('core::actions.all_m') <span
                                             class="badge badge-primary badge-pill float-right">@{{ itemsTotal }}</span>
-                                    </div>
-                                    <div @click="getItems('trashed', searchPhrase, 'click')"
-                                         class="list-group-item list-group-item-action border-0"
-                                         :class="{ active: this.itemsFilter === 'trashed' }">
-                                        <i class="font-medium-5 feather icon-trash mr-50"></i>
-                                        @lang('core::actions.trash') <span
-                                            class="badge badge-secondary badge-pill float-right">@{{ itemsTrashed }}</span>
                                     </div>
                                 </div>
                             </div>
