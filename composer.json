@@ -19,7 +19,9 @@
         "ext-xml": "*",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "6.*",
+        "laravel/passport": "7.5.1",
         "laravel/tinker": "^2.0",
+        "lcobucci/jwt": "3.3",
         "predis/predis": "^1.1",
         "sunapp/core": "^6.1",
         "sungroup/sunapp": "^6.0"

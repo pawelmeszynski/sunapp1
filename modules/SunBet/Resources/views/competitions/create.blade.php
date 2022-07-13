@@ -1,0 +1,1 @@
+@include('sunbet::competitions.index')

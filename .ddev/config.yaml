@@ -1,4 +1,4 @@
-name: sunapp
+name: sunapp1
 type: laravel
 docroot: public
 php_version: "7.4"

@@ -13,7 +13,6 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'SunAppModules\SunBet\Http\Controllers';
-
     /**
      * Called before routes are registered.
      *
