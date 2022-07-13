@@ -21,9 +21,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Router;
 use SunAppModules\SunBet\Entities\SunbetUser;
 use Config;
-use Laravel\Socialite\Two\AbstractProvider;
-use Laravel\Socialite\Two\ProviderInterface;
-use Laravel\Socialite\Two\User;
 
 
 class SunBetServiceProvider extends ModuleServiceProvider
