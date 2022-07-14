@@ -1,4 +1,9 @@
+include:
+  - project: 'system/gitlab-ci'
+    ref: main
+    file: '/test_ssh_ddev.yml'
 stages:
+  - "deploy test"
   - preparation
   - building
   - testing

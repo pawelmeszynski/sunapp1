@@ -9,9 +9,6 @@
                         <i class="feather icon-x"></i>
                     </span>
                         <div class="sg-app-menu">
-                            <a href="{{ url('/login/github') }}" class="btn btn-warning">
-                                {{ __('Login with Github') }}
-                            </a>
                             <div class="sidebar-menu-list">
                                 <div class="list-group list-group-messages font-medium-1" v-if="loadedData">
                                     <div @click="getItems('all', searchPhrase, 'click')"

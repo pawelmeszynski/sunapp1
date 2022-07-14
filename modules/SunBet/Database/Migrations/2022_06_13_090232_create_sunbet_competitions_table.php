@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Silber\Bouncer\Database\Models;
 
-class CreateCompetitionsTable extends Migration
+class CreateSunbetCompetitionsTable extends Migration
 {
     /**
      * Run the migrations.

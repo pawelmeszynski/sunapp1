@@ -43,6 +43,5 @@ Route::get('/fetch-data', function () {
 Route::get('/fetch-teams', function () {
     dump(Artisan::call('teams:fetch'));
 });
-Route::get('login/github', 'UsersController@redirectToProvider');
-Route::get('login/github/callback', 'UsersController@handleProviderCallback');
+
 

@@ -5,7 +5,7 @@ namespace SunAppModules\SunBet\Entities;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use SunAppModules\Core\Entities\Model;
+use SunAppModules\Core\Entities\User;
 
 /**
  * App\Models\SunbetUser
@@ -49,7 +49,7 @@ use SunAppModules\Core\Entities\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SunbetUser whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class SunbetUser extends Model
+class SunbetUser extends User
 {
     use HasApiTokens, Notifiable;
 
@@ -92,7 +92,5 @@ class SunbetUser extends Model
      *
      * @var array
      */
-//    protected $appends = [
-//        'profile_photo_url',
-//    ];
+    protected $appends = [];
 }

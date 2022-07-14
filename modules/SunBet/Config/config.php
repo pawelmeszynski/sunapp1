@@ -10,14 +10,17 @@ return [
             ],
         ],
     ],
-    'github' => [
-        'client_id' => env('GITHUB_ID'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('GITHUB_URL'),
+    'sunbet' => [
+        'client_id' => env('SUNBET_ID'),
+        'client_secret' => env('SUNBET_SECRET'),
+        'redirect' => env('SUNBET_URL'),
     ],
     'providers' => [
         Laravel\Socialite\SocialiteServiceProvider::class,
+        SunAppModules\SunBet\Providers\SunBetServiceProvider::class,
     ],
-    'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    'aliases' => [
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    ],
 
 ];

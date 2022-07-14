@@ -3,9 +3,11 @@
 namespace SunAppModules\SunBet\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Arr;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\SocialiteManager;
 use SunAppModules\Core\Providers\MailServiceProvider;
 use SunAppModules\SunBet\Console\CalculatePointsCommand;
 use SunAppModules\SunBet\Console\FetchAreasCommand;
@@ -35,6 +37,54 @@ class SunBetServiceProvider extends ModuleServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+
+//    /**
+//     * @param string $state
+//     *
+//     * @return string
+//     */
+//    protected function getAuthUrl($state)
+//    {
+//        return $this->buildAuthUrlFromBase('sunapp1.ddev.site/authorize/', $state);
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    protected function getTokenUrl()
+//    {
+//        return 'sunapp1.ddev.site/oauth/token';
+//    }
+//
+//    /**
+//     * @param string $token
+//     *
+//     * @throws GuzzleException
+//     *
+//     * @return array|mixed
+//     */
+//    protected function getUserByToken($token)
+//    {
+//        $response = $this->getHttpClient()->post('sunapp1.ddev.site/dashboard', [
+//            'headers' => [
+//                'Authorization' => 'Bearer ' . $token,
+//                'Content-Type' => 'application/json',
+//            ],
+//        ]);
+//
+//        return json_decode($response->getBody()->getContents(), true);
+//    }
+//
+//    /**
+//     * @return SunbetUser
+//     */
+//    protected function mapUserToObject(array $user)
+//    {
+//        return (new SunbetUser())->setRaw($user)->map([
+//            'id' => $user['id'],
+//            'email' => $user['email'],
+//        ]);
+//    }
     public function boot(Router $router, Kernel $kernel)
     {
         parent::boot($router, $kernel);
@@ -68,7 +118,13 @@ class SunBetServiceProvider extends ModuleServiceProvider
                 FetchPlayersCommand::class,
             ]
         );
-
+//        $socialite = $this->app->make(SocialiteManager::class);
+//
+//        $socialite->extend('sunbet', function () use ($socialite) {
+//            $config = config('services.sunbet');
+//
+//            return $socialite->buildProvider(SunbetSocialiteProvider::class, $config);
+//        });
     }
 
     /**
@@ -79,7 +135,6 @@ class SunBetServiceProvider extends ModuleServiceProvider
     public function register()
     {
         parent::register();
-
     }
 
     /**
