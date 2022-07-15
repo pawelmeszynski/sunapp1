@@ -13,7 +13,6 @@ class StandingsController extends Controller
 {
     public function index(Request $request)
     {
-
         $standings = SunbetStanding::with('teams')->get();
         $competitions = SunbetCompetition::all();
         foreach ($competitions as $status) {
@@ -30,8 +29,7 @@ class StandingsController extends Controller
         }
     }
 
-    public
-    function show($id, Request $request)
+    public function show($id, Request $request)
     {
         $standing = SunbetStanding::find($id);
         $competitions = SunbetCompetition::all();

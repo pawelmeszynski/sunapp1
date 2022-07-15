@@ -29,23 +29,21 @@ class CalculatePointsCommand extends Command
      */
     public function handle()
     {
-        $schedules = SunbetSchedule::where('points_calculated', false)->where('status','FINISHED')->where('competition_id', 2000)->get();
+        $schedules = SunbetSchedule::where('points_calculated', false)->where('status', 'FINISHED')->where('competition_id', 2000)->get();
 
         $schedules->each(function (SunbetSchedule $schedule) {
-            $schedule->predicts->each(function(SunbetPredict $predict) use($schedule) {
+            $schedule->predicts->each(function (SunbetPredict $predict) use ($schedule) {
                 $winnerIs = $schedule->home - $schedule->away; //-1 means away wins
                 $isDraw = $schedule->home == $schedule->away;
 
                 $userPredictedDraw = $predict->home_team_goals == $predict->away_team_goals;
                 $predictedWinner = $predict->home_team_goals - $predict->away_team_goals; //-1 means away wins
 
-                if($schedule->home == $predict->home_team_goals && $schedule->away == $predict->away_team_goals) {
+                if ($schedule->home == $predict->home_team_goals && $schedule->away == $predict->away_team_goals) {
                     $predict->user->increment('points', 3);
-                }
-                else if($isDraw && $userPredictedDraw) {
+                } else if ($isDraw && $userPredictedDraw) {
                     $predict->user->increment('points', 1);
-                }
-                else if(($winnerIs < 0 && $predictedWinner < 0) || ($winnerIs > 0 && $predictedWinner > 0)) {
+                } else if (($winnerIs < 0 && $predictedWinner < 0) || ($winnerIs > 0 && $predictedWinner > 0)) {
                     $predict->user->increment('points', 1);
                 }
             });

@@ -39,7 +39,7 @@ class FetchCompetitionsCommand extends Command
         ])->getBody()->getContents());
 
 
-        if(!property_exists($response, 'sunbet_competitions')) {
+        if (!property_exists($response, 'sunbet_competitions')) {
             foreach ($response->competitions as $competitions) {
                 SunbetCompetition::updateOrCreate(
                     [
@@ -56,9 +56,7 @@ class FetchCompetitionsCommand extends Command
                     ]
                 );
             }
-        }
-        else
-        {
+        } else {
             dump($response);
         }
 

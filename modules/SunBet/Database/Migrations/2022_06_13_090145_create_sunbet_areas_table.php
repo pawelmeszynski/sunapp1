@@ -34,4 +34,6 @@ class CreateSunbetAreasTable extends Migration
     {
         Schema::dropIfExists('sunbet_area');
     }
-};
+}
+
+;

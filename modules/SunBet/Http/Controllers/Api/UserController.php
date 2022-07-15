@@ -39,65 +39,56 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-//    public function login(Request $request): JsonResponse
-//    {
-//        $request->validate([
-//            'email' => 'required|email|exists:sunbet_users',
-//            'password' => 'required|string'
-//        ]);
-//
-//        $credentials = request(['email', 'password']);
-//
-//        if(Auth::attempt($credentials)){
-//            return response()->json([
-//                "message" => "Invalid email or password"
-//            ], 401);
-//        }
-//
-//        $user = $request->user();
-//
-//        $token = $user->createToken('AccessToken');
-//
-//        $user->access_token = $token->accessToken;
-//
-//        return response()->json([
-//            "user" => $user
-//        ],200);
-//    }
-//
-//    /**
-//     * Register api
-//     *
-//     * @return JsonResponse
-//     */
-//    public function signup(Request $request): JsonResponse
-//    {
-//        $request->validate([
-//            'name' => 'required|string',
-//            'email' => 'required|email|unique:sunbet_users',
-//            'password' => 'required|string'
-//        ]);
-//
-//        $user = new SunbetUser([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' =>Hash::make($request->password)
-//        ]);
-//
-//        $user->save();
-//        return response()->json([
-//            "message" => "User registered successfully"
-//        ],201);
-//    }
-//
-//    /**
-//     * details api
-//     *
-//     * @return JsonResponse
-//     */
-//    public function details(): JsonResponse
-//    {
-//
-//    }
+    public function login(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email|exists:sunbet_users',
+            'password' => 'required|string'
+        ]);
+
+        $credentials = request(['email', 'password']);
+
+        if(Auth::attempt($credentials)){
+            return response()->json([
+                "message" => "Invalid email or password"
+            ], 401);
+        }
+
+        $user = $request->user();
+
+        $token = $user->createToken('AccessToken');
+
+        $user->access_token = $token->accessToken;
+
+        return response()->json([
+            "user" => $user
+        ],200);
+    }
+
+    /**
+     * Register api
+     *
+     * @return JsonResponse
+     */
+    public function signup(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:sunbet_users',
+            'password' => 'required|string'
+        ]);
+
+        $user = new SunbetUser([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' =>Hash::make($request->password)
+        ]);
+
+        $user->save();
+        return response()->json([
+            "message" => "User registered successfully"
+        ],201);
+    }
+
 }
 

@@ -6,7 +6,6 @@ use SunAppModules\SunBet\Entities\SunbetStanding;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use SunAppModules\Core\Entities\Model;
 
-
 class SunbetTeam extends Model
 {
     protected $namespace = 'sunbet::competitions';
@@ -27,7 +26,8 @@ class SunbetTeam extends Model
 
     public function competitions(): BelongsToMany
     {
-        return $this->belongsToMany(SunbetCompetition::class,'sunbet_competition_team',
+        return $this->belongsToMany(SunbetCompetition::class,
+            'sunbet_competition_team',
             'team_id',
             'competition_id');
     }

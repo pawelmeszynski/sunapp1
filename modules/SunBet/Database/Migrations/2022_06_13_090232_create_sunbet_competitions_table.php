@@ -19,6 +19,8 @@ class CreateSunbetCompetitionsTable extends Migration
             $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('team_id')->nullable();
             $table->string('name')->nullable();
+            $table->boolean('status')->default(false)->nullable();
+            $table->boolean('sync')->default(false)->nullable();
             $table->string('code')->nullable();
             $table->string('type')->nullable();
             $table->string('emblem')->nullable();
@@ -39,4 +41,6 @@ class CreateSunbetCompetitionsTable extends Migration
     {
         Schema::dropIfExists('sunbet_competitions');
     }
-};
+}
+
+;

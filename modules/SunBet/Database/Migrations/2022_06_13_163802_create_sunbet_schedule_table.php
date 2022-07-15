@@ -44,4 +44,6 @@ class CreateSunbetScheduleTable extends Migration
     {
         Schema::dropIfExists('sunbet_schedule');
     }
-};
+}
+
+;

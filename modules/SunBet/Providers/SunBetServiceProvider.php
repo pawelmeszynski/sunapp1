@@ -2,13 +2,12 @@
 
 namespace SunAppModules\SunBet\Providers;
 
-use Illuminate\Database\Eloquent\Factory;
-use Illuminate\Support\Arr;
+use Config;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Routing\Router;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\SocialiteManager;
-use SunAppModules\Core\Providers\MailServiceProvider;
+use SunAppModules\Core\Providers\ModuleServiceProvider;
 use SunAppModules\SunBet\Console\CalculatePointsCommand;
 use SunAppModules\SunBet\Console\FetchAreasCommand;
 use SunAppModules\SunBet\Console\FetchCompetitionsCommand;
@@ -17,13 +16,7 @@ use SunAppModules\SunBet\Console\FetchMatchesCommand;
 use SunAppModules\SunBet\Console\FetchPlayersCommand;
 use SunAppModules\SunBet\Console\FetchStandingsCommand;
 use SunAppModules\SunBet\Console\FetchTeamsCommand;
-use SunAppModules\Core\Providers\ModuleServiceProvider;
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Routing\Router;
 use SunAppModules\SunBet\Entities\SunbetUser;
-use Config;
-
 
 class SunBetServiceProvider extends ModuleServiceProvider
 {
@@ -118,13 +111,6 @@ class SunBetServiceProvider extends ModuleServiceProvider
                 FetchPlayersCommand::class,
             ]
         );
-//        $socialite = $this->app->make(SocialiteManager::class);
-//
-//        $socialite->extend('sunbet', function () use ($socialite) {
-//            $config = config('services.sunbet');
-//
-//            return $socialite->buildProvider(SunbetSocialiteProvider::class, $config);
-//        });
     }
 
     /**

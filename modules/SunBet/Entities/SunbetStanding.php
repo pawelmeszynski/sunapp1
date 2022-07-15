@@ -34,16 +34,17 @@ class SunbetStanding extends Model
 {
     protected $namespace = 'sunbet::standings';
     protected $fillable = [
-        'stage', 'group', 'type','competition_id',
+        'stage', 'group', 'type', 'competition_id',
     ];
 
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(SunbetTeam::class, 'sunbet_standing_team',
             'standing_id',
-            'team_id')->withPivot('position', 'played_Games','form','won','draw','lost','points',
-            'goals_For','goals_For','goal_Difference');
+            'team_id')->withPivot('position', 'played_Games', 'form', 'won', 'draw', 'lost', 'points',
+            'goals_For', 'goals_For', 'goal_Difference');
     }
+
     public function competition()
     {
         return $this->belongsTo(SunbetCompetition::class, 'competition_id', 'id');

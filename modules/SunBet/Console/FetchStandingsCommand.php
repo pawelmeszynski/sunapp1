@@ -34,13 +34,6 @@ class FetchStandingsCommand extends Command
     public function handle()
     {
 
-//        $name = $this->choice(
-//            'Which competitions you want to import?',
-//            ['WC' => 'World Cup', 'EC'=> 'Euro Championship'],
-//             0
-//        );
-//
-
         $client = new Client();
         $response = json_decode($client->request('GET',
             'https://api.football-data.org/v4/competitions/' . $this->argument('code') . '/standings',
@@ -80,7 +73,6 @@ class FetchStandingsCommand extends Command
                         ],
                     ]);
                 }
-
             }
         } else {
             dump($response);

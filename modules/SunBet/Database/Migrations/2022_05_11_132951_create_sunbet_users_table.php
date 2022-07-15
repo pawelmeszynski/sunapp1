@@ -21,6 +21,7 @@ class CreateSunbetUsersTable extends Migration
             $table->integer('points')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,4 +34,6 @@ class CreateSunbetUsersTable extends Migration
     {
         Schema::dropIfExists('sunbet_users');
     }
-};
+}
+
+;

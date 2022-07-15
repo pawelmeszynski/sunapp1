@@ -37,4 +37,6 @@ class CreateSunbetTeamsTable extends Migration
     {
         Schema::dropIfExists('sunbet_teams');
     }
-};
+}
+
+;

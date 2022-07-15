@@ -12,10 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-use SunAppModules\SunBet\Entities\SunbetUser;
 
 Route::prefix('sunbet')->name('.')->group(function () {
     Route::resource('/', 'SunBetController');
@@ -43,5 +40,6 @@ Route::get('/fetch-data', function () {
 Route::get('/fetch-teams', function () {
     dump(Artisan::call('teams:fetch'));
 });
+Route::get('sunbet/login', 'Auth\LoginController@showLoginForm');
 
-
+Route::post('sunbet/login', 'Auth\LoginController@login')->name('.login');

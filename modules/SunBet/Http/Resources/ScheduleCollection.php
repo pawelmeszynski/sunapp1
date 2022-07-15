@@ -1,6 +1,7 @@
 <?php
 
 namespace SunAppModules\SunBet\Http\Resources;
+
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ScheduleCollection extends ResourceCollection

@@ -16,7 +16,7 @@ class FetchMatchesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'matches:fetch';
+    protected $signature = 'matches:fetch {code}';
 
     /**
      * The console command description.
@@ -37,7 +37,7 @@ class FetchMatchesCommand extends Command
             if ($sync->sync) {
                 $client = new Client();
                 $response = json_decode($client->request('GET',
-                    'https://api.football-data.org/v4/competitions/' . $sync->code . '/matches',
+                    'https://api.football-data.org/v4/competitions/' . $this->argument('code') . '/matches',
                     [
                         'headers' => [
                             'X-Auth-Token' => 'eb39c4511bf64a388e73dc566a8a99cd'
@@ -47,30 +47,30 @@ class FetchMatchesCommand extends Command
                 return back();
             }
         }
-            if (!property_exists($response, 'sunbet_schedules')) {
-                foreach ($response->matches as $match) {
+        if (!property_exists($response, 'sunbet_schedules')) {
+            foreach ($response->matches as $match) {
 
-                    SunbetSchedule::updateOrCreate(
-                        [
-                            'id' => $match->id,
-                        ],
-                        [
-                            'competition_id' => $match->competition->id,
-                            'home_team_id' => $match->homeTeam->id,
-                            'away_team_id' => $match->awayTeam->id,
-                            'utc_date' => Carbon::parse($match->utcDate)->toDateTimeString(),
-                            'status' => $match->status,
-                            'matchday' => $match->matchday,
-                            'stage' => $match->stage,
-                            'group' => $match->group,
-                            'last_updated_at' => Carbon::parse($match->lastUpdated),
-                            'home' => $match->score->fullTime->home ?? 0,
-                            'away' => $match->score->fullTime->away ?? 0,
-                        ]);
-                }
-            } else {
-                dump($response);
+                SunbetSchedule::updateOrCreate(
+                    [
+                        'id' => $match->id,
+                    ],
+                    [
+                        'competition_id' => $match->competition->id,
+                        'home_team_id' => $match->homeTeam->id,
+                        'away_team_id' => $match->awayTeam->id,
+                        'utc_date' => Carbon::parse($match->utcDate)->toDateTimeString(),
+                        'status' => $match->status,
+                        'matchday' => $match->matchday,
+                        'stage' => $match->stage,
+                        'group' => $match->group,
+                        'last_updated_at' => Carbon::parse($match->lastUpdated),
+                        'home' => $match->score->fullTime->home ?? 0,
+                        'away' => $match->score->fullTime->away ?? 0,
+                    ]);
             }
+        } else {
+            dump($response);
         }
+    }
 
 }

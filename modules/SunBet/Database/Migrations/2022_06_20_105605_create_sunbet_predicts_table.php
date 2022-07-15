@@ -38,4 +38,6 @@ class CreateSunbetPredictsTable extends Migration
     {
         Schema::dropIfExists('sunbet_predicts');
     }
-};
+}
+
+;

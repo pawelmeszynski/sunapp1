@@ -21,7 +21,6 @@ use Str;
 use SunAppModules\SunBet\Providers\RouteServiceProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-
 class UsersController extends Controller
 {
     protected $prefix = 'sunbet::users';
@@ -39,38 +38,4 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|RedirectResponse
-     */
-    public function redirect($provider)
-    {
-        return Socialite::driver('sunbet')->redirect();
-    }
-
-    public function callback()
-    {
-        $usr = Socialite::driver('sunbet')->stateless()->user();
-        $usr = SunbetUser::where('sunbet_id', $usr->id)->first();
-        if (isset($usr)) {
-            Auth::login($usr);
-            return redirect("/dashboard");
-        } else {
-            $new = SunbetUser::create([
-                    "name" => $usr->name,
-                    "email" => $usr->email,
-                    "google_id" => $usr->id,
-                    "roles" => "user",
-                    "password" => Hash::make($usr->password)
-                ]);
-            Auth::login($new);
-            return redirect("/dashboard");
-        }
-    }
-
-    public function login(): View
-    {
-        return view('auth.login');
-    }
 }

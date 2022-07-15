@@ -22,7 +22,7 @@ class CompetitionsForm extends Form
             'value' => 0,
             'attr' => ['readonly' => true, 'disabled' => true]
         ]);
-        if($this->getModel()->status == 0) {
+        if ($this->getModel()->status == 0) {
             if (!$this->getModel()->is_ldap) {
                 $this->modify('status', 'checkbox', [
                     'label' => 'Włącz lub wyłącz turniej',

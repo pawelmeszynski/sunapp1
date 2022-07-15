@@ -3,8 +3,6 @@
 namespace SunAppModules\SunBet\Entities;
 
 use SunAppModules\Core\Entities\Model;
-use SunAppModules\SunBet\Entities\SunbetCompetition;
-use SunAppModules\SunBet\Entities\SunbetTeam;
 
 /**
  * App\Models\SunbetSchedule
@@ -50,11 +48,23 @@ class SunbetSchedule extends Model
 {
     protected $namespace = 'sunbet::schedules';
     protected $fillable = [
-        'id','competition_id', 'utc_date', 'status', 'matchday', 'stage', 'group', 'last_updated_at','away_team_id','home_team_id','home','away', 'points_calculated',
+        'id',
+        'competition_id',
+        'utc_date',
+        'status',
+        'matchday',
+        'stage',
+        'group',
+        'last_updated_at',
+        'away_team_id',
+        'home_team_id',
+        'home',
+        'away',
+        'points_calculated',
     ];
 
     protected $casts = [
-        'utc_date'=> 'date',
+        'utc_date' => 'date',
         'last_updated_at' => 'date',
         'points_calculated' => 'boolean',
     ];
@@ -68,10 +78,12 @@ class SunbetSchedule extends Model
     {
         return $this->hasOne(SunbetTeam::class, 'id', 'home_team_id');
     }
+
     public function predicts()
     {
         return $this->hasMany(SunbetPredict::class, 'match_id', 'id');
     }
+
     public function competition()
     {
         return $this->hasMany(SunbetCompetition::class, 'competition_id', 'id');

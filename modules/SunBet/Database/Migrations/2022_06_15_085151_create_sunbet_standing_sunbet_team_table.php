@@ -34,7 +34,6 @@ class CreateSunbetStandingSunbetTeamTable extends Migration
             $table->integer('goal_Difference')->nullable();
 
 
-
             $table->timestamps();
         });
     }
@@ -48,4 +47,6 @@ class CreateSunbetStandingSunbetTeamTable extends Migration
     {
         Schema::dropIfExists('sunbet_standing_team');
     }
-};
+}
+
+;

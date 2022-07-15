@@ -2,26 +2,14 @@
 
 namespace SunAppModules\Sunbet\Http\Controllers\Api;
 
-
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use SunAppModules\Core\Http\Controllers\Controller;
+use SunAppModules\SunBet\Entities\SunbetUser;
 
 class AuthApiController extends Controller
 {
-    public function response($user)
-    {
-        $token = $user->createToken(str()->random(40))->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'expiration' => config('sanctum.expiration')
-        ]);
-    }
 
     public function register(Request $request)
     {
@@ -31,7 +19,7 @@ class AuthApiController extends Controller
             'password' => 'required|min:4'
         ]);
 
-        $user = User::create([
+        $user = SunbetUser::create([
             'name' => ucwords($request->name),
             'email' => $request->email,
             'password' => Hash::make(($request->password)),
@@ -65,5 +53,4 @@ class AuthApiController extends Controller
             'message' => 'You have successfully logged out!'
         ]);
     }
-
 }

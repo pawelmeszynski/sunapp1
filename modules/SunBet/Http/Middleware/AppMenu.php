@@ -40,9 +40,7 @@ class AppMenu
                     ['route' => 'SunApp::sunbet.matches.fetch']
                 )->data(['icon' => 'feather icon-user']);
             }
-        }
-        );
+        });
         return $next($request);
-
     }
 }

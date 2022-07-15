@@ -47,31 +47,26 @@ class FetchPlayersCommand extends Command
 
         if (!property_exists($response, 'sunbet_players')) {
             foreach ($response->teams as $team) {
-//                SunbetPlayer::updateOrCreate(
-//                    [
-//                        'team_id' => $team->id,
-//                    ],
-//                );
                 foreach ($team->squad as $players) {
                     SunbetPlayer::updateOrCreate(
                         [
-                            'id'=> $players->id ?? null,
+                            'id' => $players->id ?? null,
                         ],
                         [
-                        'team_id' => $team->id,
-                        'name' => $players->name ?? null,
-                        'position'=> $players->position ?? null,
-                        'dateOfBirth'=> $players->dateOfBirth ?? null,
-                        'nationality'=> $players->nationality ?? null,
+                            'team_id' => $team->id,
+                            'name' => $players->name ?? null,
+                            'position' => $players->position ?? null,
+                            'dateOfBirth' => $players->dateOfBirth ?? null,
+                            'nationality' => $players->nationality ?? null,
                         ]
-                );
+                    );
                     $progressbar->advance();
                 }
             }
         } else {
             dump($response);
         }
-                    $progressbar->finish();
+        $progressbar->finish();
 
         return 0;
     }

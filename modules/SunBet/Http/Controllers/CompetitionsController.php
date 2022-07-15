@@ -2,7 +2,6 @@
 
 namespace SunAppModules\SunBet\Http\Controllers;
 
-
 use SunAppModules\Core\Http\Controllers\Controller;
 use SunAppModules\Core\Repositories\Repository;
 use Illuminate\Http\Request;
@@ -31,10 +30,11 @@ class CompetitionsController extends Controller
             //
         ]);
     }
+
     /**
      * Update the specified resource in storage.
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function edit($id, Request $request)

@@ -33,4 +33,6 @@ class CreateSunbetStandingsTable extends Migration
     {
         Schema::dropIfExists('sumbet_standings');
     }
-};
+}
+
+;
