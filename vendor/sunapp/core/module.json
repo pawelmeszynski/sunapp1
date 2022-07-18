@@ -1,0 +1,39 @@
+{
+    "name": "Core",
+    "alias": "core",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "hedronium\\SpacelessBlade\\SpacelessBladeProvider",
+        "SunAppModules\\Core\\src\\View\\ViewServiceProvider",
+        "SunAppModules\\Core\\src\\Theme\\ThemeServiceProvider",
+        "SunAppModules\\Core\\src\\FormBuilder\\FormBuilderServiceProvider",
+        "SunAppModules\\Core\\Providers\\CoreServiceProvider",
+        "SunAppModules\\Core\\Providers\\RouteServiceProvider",
+        "SunAppModules\\Core\\src\\Translation\\TranslationServiceProvider"
+    ],
+    "aliases": {
+        "ModuleServiceProvider": "SunAppModules\\Core\\Providers\\ModuleServiceProvider",
+        "Model": "SunAppModules\\Core\\Entities\\Model",
+        "User": "SunAppModules\\Core\\Entities\\User",
+        "UserGroup": "SunAppModules\\Core\\Entities\\UserGroup",
+        "OfflineModel": "SunAppModules\\Core\\Entities\\OfflineModel",
+        "Controller": "SunAppModules\\Core\\Http\\Controllers\\Controller",
+        "Repository": "SunAppModules\\Core\\Repositories\\Repository",
+        "Presenter": "SunAppModules\\Core\\Presenters\\Presenter",
+        "Transformer": "SunAppModules\\Core\\Transformers\\Transformer",
+        "Theme": "Facuz\\Theme\\Facades\\Theme"
+    },
+    "abilities": {
+        "\\SunAppModules\\Core\\Entities\\User": "core::module.users",
+        "\\SunAppModules\\Core\\Entities\\UserGroup": "core::module.users_groups",
+        "\\SunAppModules\\Core\\Entities\\ExtraField": "core::module.extra_fields",
+        "\\SunAppModules\\Core\\Entities\\ExtraFieldEntity": "core::module.extra_fields_entity",
+        "\\SunAppModules\\Core\\Entities\\ExtraFieldValue": "core::module.extra_fields",
+        "\\SunAppModules\\Core\\Entities\\Role": "core::module.users_roles"
+    },
+    "files": ["./helpers.php"],
+    "requires": []
+}

@@ -40,6 +40,6 @@ Route::get('/fetch-data', function () {
 Route::get('/fetch-teams', function () {
     dump(Artisan::call('teams:fetch'));
 });
-Route::get('sunbet/login', 'Auth\LoginController@showLoginForm');
+Route::post('sunbet/login', 'Auth\LoginController@loginUser');
 
-Route::post('sunbet/login', 'Auth\LoginController@login')->name('.login');
+Route::get('sunbet/login', 'Auth\LoginController@showLoginForm')->name('.login');

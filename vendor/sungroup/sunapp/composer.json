@@ -1,0 +1,51 @@
+{
+    "name": "sungroup/sunapp",
+    "description": "The SunApp Base.",
+    "keywords": [
+        "framework",
+        "laravel",
+        "sunapp"
+    ],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "nwidart/laravel-modules": "^6.0",
+        "rachidlaasri/laravel-installer": "^4.0",
+        "composer/composer": "^1.8|^2.0",
+        "sungroup/composer-merge-plugin": "^1.5"
+    },
+    "autoload": {
+        "files": [
+            "helpers.php"
+        ],
+        "psr-4": {
+            "SunApp\\": "src",
+            "Modules\\": "../../../modules/"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SunApp\\Providers\\AppServiceProvider",
+                "SunApp\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+            }
+        },
+        "merge-plugin": {
+            "include": [
+                "modules/*/composer.json"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.sungroup.pl/composer"
+        }
+    ]
+}

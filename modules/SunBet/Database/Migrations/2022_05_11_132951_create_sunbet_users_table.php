@@ -15,11 +15,16 @@ class CreateSunbetUsersTable extends Migration
     {
         Schema::create('sunbet_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email');
             $table->string('password');
             $table->integer('points')->nullable();
+            $table->boolean('is_ldap')->default(0);
+            $table->string('ldap_name')->nullable();
             $table->rememberToken();
+            $table->dateTime('logged_at')
+                ->nullable()
+                ->default(null);
             $table->timestamps();
             $table->softDeletes();
         });

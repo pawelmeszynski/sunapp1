@@ -1,0 +1,38 @@
+include:
+  - project: 'system/gitlab-ci'
+    ref: main
+    file: '/calc_version.yml'
+  - project: 'system/gitlab-ci'
+    ref: main
+    file: '/do_gitlab_release.yml' 
+  - project: 'system/gitlab-ci'
+    ref: main
+    file: '/publish_composer_package.yml' 
+
+stages:
+  - .pre
+  - testing
+  - build
+  - release
+
+image: edbizarro/gitlab-ci-pipeline-php:7.3
+
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+
+phpcs:
+  stage: testing
+  image: lorisleiva/laravel-docker
+  script:
+    - phpcs --standard=PSR12 --ignore=*.blade.php --extensions=php .
+  dependencies: []
+
+phpcpd:
+  stage: testing
+  script:
+    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
+    - php phpcpd.phar ./ --min-lines=50
+  dependencies: []
+  cache:
+    paths:
+      - phpcpd.phar

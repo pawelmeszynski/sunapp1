@@ -1,0 +1,22 @@
+// ================================================================================================
+//  File Name: media-player.scss
+//  Description: Media Player SCSS.
+//  ----------------------------------------------------------------------------------------------
+//  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+//  Version: 2.0
+//  Author: PIXINVENT
+//  Author URL: http://www.themeforest.net/user/pixinvent
+// ================================================================================================
+
+// to remove outline on focus
+.audio-player {
+  &:focus {
+    outline: 0;
+  }
+}
+.plyr__controls {
+  justify-content: flex-start;
+}
+.plyr__progress{
+  flex-grow: 1;
+}

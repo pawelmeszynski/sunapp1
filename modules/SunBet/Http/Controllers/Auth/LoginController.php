@@ -37,7 +37,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function loginUser(Request $request)
     {
         if ($request->remember_device == "on") {
             $request->session()->put('remember_device', true);
@@ -52,6 +52,8 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
+
+
         if (strpos($request->email, 'sungroup.pl') !== false) {
             if ($ldapData = $this->attemptLdap($request)) {
                 switch ($ldapData['code']) {
