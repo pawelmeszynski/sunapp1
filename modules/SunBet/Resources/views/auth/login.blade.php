@@ -48,45 +48,19 @@
                                         </span>
                                         @enderror
                                     </fieldset>
-                                    <div class="form-group d-flex justify-content-between align-items-center">
-                                        <div class="text-left">
-                                            <fieldset class="checkbox">
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" name="remember"
-                                                           id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                    <span class="">@lang('auth.remember_me')</span>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset class="checkbox">
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" name="remember_device"
-                                                           id="remember_device" {{ old('remember_device') ? 'checked' : '' }}>
-                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                    <span class="">@lang('auth.remember_device')</span>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="text-right"><a href="{{route('SunApp::password.request')}}"
-                                                                   class="card-link">@lang('auth.forgot_password')</a>
-                                        </div>
-                                    </div>
-                                    @if(Route::has('SunApp::register'))
-                                        <a href="{{route('SunApp::register')}}"
-                                           class="btn btn-outline-primary float-left btn-inline">@lang('auth.register')</a>
+                                    <button type="submit"
+                                            class="btn btn-primary float-right btn-inline">@lang('auth.login')</button>
+                                    <input type="hidden" name="_token" value="{{ Session::token() }}">
+                                    <input type="hidden" name="remember_token" value="true">
+                                    <!-- Verify condition -->
+                                    @if(isset($_GET['redirectTo']))
+                                        <input type="hidden" name="redirectTo" value="{{ $_GET['redirectTo'] }}">
                                     @endif
-{{--                                    <button type="submit"--}}
-{{--                                            class="btn btn-primary float-right btn-inline">@lang('auth.login')</button>--}}
-
-                                    <a href="{{ route('login.attemptWithLdap') }}"> Zaloguj mnie</a>
+                                    @error('url')
+                                    <span class="invalid-feedback">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </form>
                             </div>
                         </div>

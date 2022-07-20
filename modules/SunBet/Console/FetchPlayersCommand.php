@@ -3,9 +3,9 @@
 namespace SunAppModules\SunBet\Console;
 
 use GuzzleHttp\Client;
-use SunAppModules\SunBet\Entities\SunbetCompetition;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use SunAppModules\SunBet\Entities\SunbetCompetition;
 use SunAppModules\SunBet\Entities\SunbetPlayer;
 
 class FetchPlayersCommand extends Command
@@ -27,7 +27,7 @@ class FetchPlayersCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function handle()
     {
@@ -35,15 +35,21 @@ class FetchPlayersCommand extends Command
         $progressbar = $this->output->createProgressBar();
         $progressbar->start();
 
-        $client = new Client();
-        $response = json_decode($client->request('GET',
-            'https://api.football-data.org/v4/competitions/' . $this->argument('code') . '/teams',
-            [
-                'headers' => [
-                    'X-Auth-Token' => 'eb39c4511bf64a388e73dc566a8a99cd'
-                ]
-            ])->getBody()->getContents());
-
+        $competitions = SunbetCompetition::all();
+        foreach ($competitions as $sync) {
+            if ($sync->sync) {
+                $client = new Client();
+                $response = json_decode($client->request('GET',
+                    'https://api.football-data.org/v4/competitions/' . $this->argument('code') . '/teams',
+                    [
+                        'headers' => [
+                            'X-Auth-Token' => 'eb39c4511bf64a388e73dc566a8a99cd'
+                        ]
+                    ])->getBody()->getContents());
+            } else {
+                return back();
+            }
+        }
 
         if (!property_exists($response, 'sunbet_players')) {
             foreach ($response->teams as $team) {

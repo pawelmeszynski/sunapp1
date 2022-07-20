@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use URL;
 
 trait AuthenticatesUsers
 {
@@ -113,19 +114,30 @@ trait AuthenticatesUsers
     /**
      * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
      * @return mixed
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $ldapUser)
     {
         //
+    }
+
+    protected function authorizatedUserResponse(Request $request)
+    {
+        $url = $request->redirectTo;
+        if ($url) {
+            return $this->authenticated($request, $this->guard()->user())
+                ?: redirect()->away('https://' . $url . '?' . http_build_query(['access_token' => $request->access_token]));
+        } else {
+            return abort(404);
+        }
     }
 
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Illuminate\Validation\ValidationException

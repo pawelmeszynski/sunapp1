@@ -1,1 +1,1 @@
-@include('core::users.index')
+@include('sunbet::users.index')

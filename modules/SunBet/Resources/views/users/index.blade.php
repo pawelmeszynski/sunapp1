@@ -295,7 +295,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('core::users.form')
+                            @include('sunbet::users.form')
                         </div>
                     </div>
                 </div>

@@ -45,12 +45,13 @@ class AuthApiController extends Controller
 
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::user()->tokens()->delete();
-
-        return response()->json([
-            'message' => 'You have successfully logged out!'
-        ]);
+        $user = SunbetUser::updateOrCreate([
+            'email' => $request->email,
+        ],
+            [
+                'logged_at' => null,
+            ]);
     }
 }

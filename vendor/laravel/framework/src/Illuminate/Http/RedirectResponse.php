@@ -23,7 +23,7 @@ class RedirectResponse extends BaseRedirectResponse
      *
      * @var \Illuminate\Http\Request
      */
-    protected $request;
+    public $request;
 
     /**
      * The session store instance.

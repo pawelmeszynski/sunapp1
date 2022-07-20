@@ -5,7 +5,6 @@ namespace SunAppModules\SunBet\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use SunAppModules\Core\Entities\Model;
-use SunAppModules\SunBet\Entities\SunbetTeam;
 
 class SunbetCompetition extends Model
 {

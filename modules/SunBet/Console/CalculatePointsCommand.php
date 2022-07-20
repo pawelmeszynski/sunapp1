@@ -29,7 +29,10 @@ class CalculatePointsCommand extends Command
      */
     public function handle()
     {
-        $schedules = SunbetSchedule::where('points_calculated', false)->where('status', 'FINISHED')->where('competition_id', 2000)->get();
+        $schedules = SunbetSchedule::where('points_calculated', false)
+            ->where('status', 'FINISHED')
+            ->where('competition_id', 2000)
+            ->get();
 
         $schedules->each(function (SunbetSchedule $schedule) {
             $schedule->predicts->each(function (SunbetPredict $predict) use ($schedule) {
@@ -53,4 +56,5 @@ class CalculatePointsCommand extends Command
             ]);
         });
     }
+
 }

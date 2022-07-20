@@ -65,6 +65,7 @@ class SunbetUser extends User
         'email',
         'password',
         'points',
+        'logged_at'
     ];
 
     /**

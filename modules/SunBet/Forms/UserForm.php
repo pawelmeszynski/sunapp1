@@ -1,9 +1,7 @@
 <?php
 
-namespace SunAppModules\Sunbet\Forms;
+namespace SunAppModules\SunBet\Forms;
 
-use SunAppModules\Core\Entities\Role;
-use SunAppModules\Core\Entities\UserGroup;
 use SunAppModules\Core\src\FormBuilder\Form;
 
 class UserForm extends Form

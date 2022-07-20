@@ -16,7 +16,7 @@ class FetchMatchesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'matches:fetch {code}';
+    protected $signature = 'matches:fetch';
 
     /**
      * The console command description.
@@ -32,21 +32,21 @@ class FetchMatchesCommand extends Command
      */
     public function handle()
     {
-//        $competitions = SunbetCompetition::all();
-//        foreach ($competitions as $sync) {
-//            if ($sync->sync) {
+        $competitions = SunbetCompetition::all();
+        foreach ($competitions as $sync) {
+            if ($sync->sync) {
                 $client = new Client();
                 $response = json_decode($client->request('GET',
-                    'https://api.football-data.org/v4/competitions/' . $this->argument('code') . '/matches',
+                    'https://api.football-data.org/v4/competitions/' . $sync->code . '/matches',
                     [
                         'headers' => [
                             'X-Auth-Token' => 'eb39c4511bf64a388e73dc566a8a99cd'
                         ]
                     ])->getBody()->getContents());
-//            } else {
-//                return back();
-//            }
-//        }
+            } else {
+                return back();
+            }
+        }
         if (!property_exists($response, 'sunbet_schedules')) {
             foreach ($response->matches as $match) {
 

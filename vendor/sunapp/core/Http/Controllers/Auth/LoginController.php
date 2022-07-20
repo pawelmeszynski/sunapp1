@@ -4,6 +4,7 @@ namespace SunAppModules\Core\Http\Controllers\Auth;
 
 use Bouncer;
 use Carbon\Carbon;
+use DB;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
@@ -38,12 +39,9 @@ class LoginController extends BaseController
      *
      * @var string
      */
+
+
     protected $redirectTo = '/';
-    /**
-     * The access token.
-     *
-     * @var string
-     */
 
     /**
      * Create a new controller instance.
@@ -104,44 +102,7 @@ class LoginController extends BaseController
                 }
             }
         }
-//        dd($ldapData = $this->attemptLdap($request));
-//            if (strpos($request->email, 'sungroup.pl') !== false) {
-//                if ($ldapData = $this->attemptLdap($request)) {
-//                    dump('dupa');
-//                    $client = new Client();
-//                    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM5MWQ2ZWE4NGY1YzM4ZDg4YjBiZTBkOTY4YzJiNDhiMjQzZTlmNjZkMzRkZDdkYWFmM2YyMmIwNzRlZjQwNmY0Y2Q3YTA5NTBhNTYxNWNkIn0.eyJhdWQiOiIyIiwianRpIjoiMzkxZDZlYTg0ZjVjMzhkODhiMGJlMGQ5NjhjMmI0OGIyNDNlOWY2NmQzNGRkN2RhYWYzZjIyYjA3NGVmNDA2ZjRjZDdhMDk1MGE1NjE1Y2QiLCJpYXQiOjE2NTc4OTIwNTksIm5iZiI6MTY1Nzg5MjA1OSwiZXhwIjoxNjU4NTAyMzA0LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.vEqb4NXs075hLJeur-IqEp838tysOU1CpZ93qxtVtpo6GsHdQCsRJkmZbNb1scWja7FfAf3aiSOOmSQVwDlzVX_tU2TdZ6OD85hKG_w_ZjWCRnuBB5TiJdXCZmcRlJQ-BuJTnBAl5ScqIAcBifS9chRuTM-AqviOU9HyBkzbgJsZSb9wIigUMx9TIu1rjAg6wXvRBnNRtu6iwsy-fcLcW8PcaHk4X6Y_Y9whiG9eBKywd9AkrGxnYmgzUpyeR6R92zIf4ao07qH9Om2KtJimubyoneJIASR281X-kpmrgTb0wGvpmOFT9_0ZpFUFCQIAcEIdepWVjjIvoiff4X3CXeMHhSFkvxCctenaNFiz859c-Vc-mUo3Po-G9x3KY1a8-0tfhpOv6tOFzD0Hl_dyKWcCEUJjiGgSgTCZWxC1_g5kjVE175jP-3ECzrQkOFjxQsM7BPY1vejUgr7I5qA2PVjGgo6ekt5632dVxCEaz4XjvUrhcR09k52LLTGlGGi-AuMbh4QT-ZNIDBeZJ3Ptd1YdWbKAwuixBYZW9iTv-JJC-rawapbMGC1xO7WC7AEUprjUZvTP4nVgnfa3QOA5RLCnmf15tgXk2HLVOaKEFgfdpoX8z-Vg_GzinnYssPKq2PU5XVmoT7oL1Yr55HQFJp3ZuZ4RsLfXGfIM_--JuG0';
-//                    $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-//                        'headers' => [
-//                            'Authorization' => 'Bearer ' . $token],
-//                        'form_params' => [
-//                            'grant_type' => 'password',
-//                            'client_id' => '2',
-//                            'client_secret' => 'UJyiUsDkhMHRgGlMGADVSkIJAOE44Lr0OAKl6dJU',
-//                            'username' => '123@123.com',
-//                            'password' => '123'
-//                        ],
-//                    ])->getBody()->getContents());
-//                    $accessToken = $response->access_token;
-//
-//                    return $this->attemptWithLdap($request, $ldapData['data']);
-//                } else {
-//                    dump('1111111111111111111111111');
-//                    $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-//                        'headers' => [
-//                            'Authorization' => 'Bearer ' . $token],
-//                        'form_params' => [
-//                            'grant_type' => 'password',
-//                            'client_id' => '2',
-//                            'client_secret' => 'UJyiUsDkhMHRgGlMGADVSkIJAOE44Lr0OAKl6dJU',
-//                            'username' => '123@123.com',
-//                            'password' => '123'
-//                        ],
-//                    ])->getBody()->getContents());
-//                    $accessToken = $response->access_token;
-//
-//                    return $this->attemptWithoutLdap($request);
-//                }
-//            }
+
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
@@ -180,7 +141,6 @@ class LoginController extends BaseController
 
     public function attemptWithLdap($request, $ldapData)
     {
-
         $ldapUser = SunbetUser::updateOrCreate(
             [
                 'email' => $ldapData->email,
@@ -201,19 +161,18 @@ class LoginController extends BaseController
         );
         Bouncer::allow($ldapUser)->everything();
         $client = new Client();
-        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM5MWQ2ZWE4NGY1YzM4ZDg4YjBiZTBkOTY4YzJiNDhiMjQzZTlmNjZkMzRkZDdkYWFmM2YyMmIwNzRlZjQwNmY0Y2Q3YTA5NTBhNTYxNWNkIn0.eyJhdWQiOiIyIiwianRpIjoiMzkxZDZlYTg0ZjVjMzhkODhiMGJlMGQ5NjhjMmI0OGIyNDNlOWY2NmQzNGRkN2RhYWYzZjIyYjA3NGVmNDA2ZjRjZDdhMDk1MGE1NjE1Y2QiLCJpYXQiOjE2NTc4OTIwNTksIm5iZiI6MTY1Nzg5MjA1OSwiZXhwIjoxNjU4NTAyMzA0LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.vEqb4NXs075hLJeur-IqEp838tysOU1CpZ93qxtVtpo6GsHdQCsRJkmZbNb1scWja7FfAf3aiSOOmSQVwDlzVX_tU2TdZ6OD85hKG_w_ZjWCRnuBB5TiJdXCZmcRlJQ-BuJTnBAl5ScqIAcBifS9chRuTM-AqviOU9HyBkzbgJsZSb9wIigUMx9TIu1rjAg6wXvRBnNRtu6iwsy-fcLcW8PcaHk4X6Y_Y9whiG9eBKywd9AkrGxnYmgzUpyeR6R92zIf4ao07qH9Om2KtJimubyoneJIASR281X-kpmrgTb0wGvpmOFT9_0ZpFUFCQIAcEIdepWVjjIvoiff4X3CXeMHhSFkvxCctenaNFiz859c-Vc-mUo3Po-G9x3KY1a8-0tfhpOv6tOFzD0Hl_dyKWcCEUJjiGgSgTCZWxC1_g5kjVE175jP-3ECzrQkOFjxQsM7BPY1vejUgr7I5qA2PVjGgo6ekt5632dVxCEaz4XjvUrhcR09k52LLTGlGGi-AuMbh4QT-ZNIDBeZJ3Ptd1YdWbKAwuixBYZW9iTv-JJC-rawapbMGC1xO7WC7AEUprjUZvTP4nVgnfa3QOA5RLCnmf15tgXk2HLVOaKEFgfdpoX8z-Vg_GzinnYssPKq2PU5XVmoT7oL1Yr55HQFJp3ZuZ4RsLfXGfIM_--JuG0';
         $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $token ],
             'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => 'UJyiUsDkhMHRgGlMGADVSkIJAOE44Lr0OAKl6dJU',
-                'username' => '123@123.com',
-                'password' => '123'
+                'grant_type' => env('SUNBET_GRANT_TYPE'),
+                'client_id' => env('SUNBET_ID'),
+                'client_secret' => env('SUNBET_SECRET'),
+                'username' => $ldapUser->email,
+                'password' => $request->password
             ],
         ])->getBody()->getContents());
+
         $accessToken = $response->access_token;
+
         return $this->sendLoginResponse($request);
     }
 
@@ -223,33 +182,35 @@ class LoginController extends BaseController
             $this->credentials($request),
             $request->filled('remember')
         );
-        if ($request) {
+        if ($attempt) {
             $user = $this->guard()->user();
             if ($user->is_ldap) {
                 if ($user->logged_at > Carbon::now()->subDays(3)) {
                     return $this->sendLoginResponse($request);
                 }
             } else {
-                $newUser = SunbetUser::updateOrCreate(
-                    [
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    ],
-                    [
-                    'ldap_name' => $request->ldap_name ?? null,
-                    'name' => $request->name ?? 'nic',
-                    'logged_at' => Carbon::now(),
+                $cred = $request->validate([
+                    'email' => 'required|email|exists:sunbet_users',
+                    'password' => 'required'
                 ]);
+                if (!$cred) {
+                    $newUser = SunbetUser::updateOrCreate(
+                        [
+                            'email' => $request->email,
+                        ],
+                        [
+                            'name' => $request->name ?? null,
+                            'password' => Hash::make($request->password),
+                            'logged_at' => Carbon::now(),
+                        ]);
+                }
                 $client = new Client();
-                $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM5MWQ2ZWE4NGY1YzM4ZDg4YjBiZTBkOTY4YzJiNDhiMjQzZTlmNjZkMzRkZDdkYWFmM2YyMmIwNzRlZjQwNmY0Y2Q3YTA5NTBhNTYxNWNkIn0.eyJhdWQiOiIyIiwianRpIjoiMzkxZDZlYTg0ZjVjMzhkODhiMGJlMGQ5NjhjMmI0OGIyNDNlOWY2NmQzNGRkN2RhYWYzZjIyYjA3NGVmNDA2ZjRjZDdhMDk1MGE1NjE1Y2QiLCJpYXQiOjE2NTc4OTIwNTksIm5iZiI6MTY1Nzg5MjA1OSwiZXhwIjoxNjU4NTAyMzA0LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.vEqb4NXs075hLJeur-IqEp838tysOU1CpZ93qxtVtpo6GsHdQCsRJkmZbNb1scWja7FfAf3aiSOOmSQVwDlzVX_tU2TdZ6OD85hKG_w_ZjWCRnuBB5TiJdXCZmcRlJQ-BuJTnBAl5ScqIAcBifS9chRuTM-AqviOU9HyBkzbgJsZSb9wIigUMx9TIu1rjAg6wXvRBnNRtu6iwsy-fcLcW8PcaHk4X6Y_Y9whiG9eBKywd9AkrGxnYmgzUpyeR6R92zIf4ao07qH9Om2KtJimubyoneJIASR281X-kpmrgTb0wGvpmOFT9_0ZpFUFCQIAcEIdepWVjjIvoiff4X3CXeMHhSFkvxCctenaNFiz859c-Vc-mUo3Po-G9x3KY1a8-0tfhpOv6tOFzD0Hl_dyKWcCEUJjiGgSgTCZWxC1_g5kjVE175jP-3ECzrQkOFjxQsM7BPY1vejUgr7I5qA2PVjGgo6ekt5632dVxCEaz4XjvUrhcR09k52LLTGlGGi-AuMbh4QT-ZNIDBeZJ3Ptd1YdWbKAwuixBYZW9iTv-JJC-rawapbMGC1xO7WC7AEUprjUZvTP4nVgnfa3QOA5RLCnmf15tgXk2HLVOaKEFgfdpoX8z-Vg_GzinnYssPKq2PU5XVmoT7oL1Yr55HQFJp3ZuZ4RsLfXGfIM_--JuG0';
                 $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . $token ],
                     'form_params' => [
-                        'grant_type' => 'password',
-                        'client_id' => '2',
-                        'client_secret' => 'UJyiUsDkhMHRgGlMGADVSkIJAOE44Lr0OAKl6dJU',
-                        'username' => $newUser->email,
+                        'grant_type' => env('SUNBET_GRANT_TYPE'),
+                        'client_id' => env('SUNBET_ID'),
+                        'client_secret' => env('SUNBET_SECRET'),
+                        'username' => $request->email,
                         'password' => $request->password
                     ],
                 ])->getBody()->getContents());

@@ -30,7 +30,7 @@ class Store implements Session
      *
      * @var array
      */
-    protected $attributes = [];
+    public $attributes = [];
 
     /**
      * The session handler implementation.

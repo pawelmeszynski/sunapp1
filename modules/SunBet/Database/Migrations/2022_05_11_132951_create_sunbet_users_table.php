@@ -18,7 +18,7 @@ class CreateSunbetUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->integer('points')->nullable();
+            $table->integer('points')->default(0);
             $table->boolean('is_ldap')->default(0);
             $table->string('ldap_name')->nullable();
             $table->rememberToken();

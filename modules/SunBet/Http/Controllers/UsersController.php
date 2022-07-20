@@ -12,7 +12,7 @@ use Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
-use SunAppModules\Core\Forms\UserForm;
+use SunAppModules\SunBet\Forms\UserForm;
 use SunAppModules\Core\Http\Controllers\Controller;
 use SunAppModules\Core\Repositories\Repository;
 use SunAppModules\SunBet\Entities\SunbetStanding;

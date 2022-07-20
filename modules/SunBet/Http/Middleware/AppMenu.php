@@ -25,7 +25,7 @@ class AppMenu
             if ($home) {
                 $home->add(
                     'Tabela userów',
-                    ['action' => '\SunAppModules\Core\Http\Controllers\UsersController@index']
+                    ['action' => '\SunAppModules\SunBet\Http\Controllers\UsersController@index']
                 )->data(['icon' => 'feather icon-user']);
                 $home->add(
                     'Turnieje',
