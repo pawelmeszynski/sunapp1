@@ -162,7 +162,7 @@ class LoginController extends BaseController
 //        );
 
         $client = new Client();
-        $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
+        $response = json_decode($client->request('POST', 'https://sunpame-sunapp.test.sungroup.pl/oauth/token', [
             'form_params' => [
                 'grant_type' => env('SUNBET_GRANT_TYPE'),
                 'client_id' => env('SUNBET_ID'),
@@ -207,15 +207,16 @@ class LoginController extends BaseController
                         'logged_at' => Carbon::now(),
                     ]);
                 $client = new Client();
-                $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-                    'form_params' => [
-                        'grant_type' => env('SUNBET_GRANT_TYPE'),
-                        'client_id' => env('SUNBET_ID'),
-                        'client_secret' => env('SUNBET_SECRET'),
-                        'username' => $newUser->email,
-                        'password' => $request->password
-                    ],
-                ])->getBody()->getContents());
+                $response = json_decode(
+                    $client->request('POST', 'https://sunpame-sunapp.test.sungroup.pl/oauth/token', [
+                        'form_params' => [
+                            'grant_type' => env('SUNBET_GRANT_TYPE'),
+                            'client_id' => env('SUNBET_ID'),
+                            'client_secret' => env('SUNBET_SECRET'),
+                            'username' => $newUser->email,
+                            'password' => $request->password
+                        ],
+                    ])->getBody()->getContents());
                 $accessToken = $response->access_token;
                 return $this->sendLoginResponse($request);
             }
