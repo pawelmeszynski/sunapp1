@@ -166,7 +166,7 @@ class LoginController extends BaseController
                 'grant_type' => env('SUNBET_GRANT_TYPE'),
                 'client_id' => env('SUNBET_ID'),
                 'client_secret' => env('SUNBET_SECRET'),
-                'username' => $ldapUser->email,
+                'username' => $request->email,
                 'password' => $request->password
             ],
         ])->getBody()->getContents());
