@@ -128,7 +128,8 @@ trait AuthenticatesUsers
         $url = $request->redirectTo;
         if ($url) {
             return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->away('https://' . $url . '?' . http_build_query(['access_token' => $request->access_token]));
+                ?: redirect()
+                    ->away('https://' . $url . '?' . http_build_query(['access_token' => $request->access_token]));
         } else {
             return abort(404);
         }

@@ -51,16 +51,13 @@
                                     <button type="submit"
                                             class="btn btn-primary float-right btn-inline">@lang('auth.login')</button>
                                     <input type="hidden" name="_token" value="{{ Session::token() }}">
-                                    <input type="hidden" name="remember_token" value="true">
                                     <!-- Verify condition -->
+                                    @if(isset($_SESSION['access_token']))
+                                    <input type="hidden" name="access_token" value="{{ $_SESSION['access_token'] }}"
+                                    @endif
                                     @if(isset($_GET['redirectTo']))
                                         <input type="hidden" name="redirectTo" value="{{ $_GET['redirectTo'] }}">
                                     @endif
-                                    @error('url')
-                                    <span class="invalid-feedback">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
                                 </form>
                             </div>
                         </div>

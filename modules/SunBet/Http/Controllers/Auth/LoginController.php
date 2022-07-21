@@ -173,10 +173,12 @@ class LoginController extends BaseController
         ])->getBody()->getContents());
 
         $accessToken = $response->access_token;
+
         $request->query->add(['access_token' => $accessToken]);
+
         $request->attributes->add(['access_token' => $accessToken]);
 
-        $request = $this->authorizatedUserResponse($request);
+        $request = $this->authorizatedUserResponse($request)->with(['access_token' => $request->access_token]);
 
         return $request;
     }
