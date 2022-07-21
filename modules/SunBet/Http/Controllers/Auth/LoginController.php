@@ -124,7 +124,6 @@ class LoginController extends BaseController
         ]);
         $data = $request->all();
         $data['sys_user'] = $request->server('USER');
-//        $data['group'] = 'L_SUNAPP';
         try {
             $response = $ldapClient->request('POST', 'auth/ldap.php', [
                 'headers' => ['Authorization' => 'Bearer ' . $token],
