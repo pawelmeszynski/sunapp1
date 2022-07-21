@@ -141,16 +141,6 @@ class LoginController extends BaseController
 
     public function attemptWithLdap($request, $ldapData)
     {
-        $ldapUser = SunbetUser::updateOrCreate(
-            [
-                'email' => $ldapData->email,
-            ],
-            [
-                'name' => $ldapData->name ?? null,
-                'password' => Hash::make($ldapData->password),
-                'is_ldap' => 1,
-                'ldap_name' => $ldapData->ldap_name
-            ]);
 
         $attempt = $this->guard()->attempt(
             $this->credentials($request),
@@ -160,18 +150,6 @@ class LoginController extends BaseController
             UserGroup::where('name', 'SunGroup')->where('core', 1)->first()
         );
         Bouncer::allow($ldapUser)->everything();
-        $client = new Client();
-        $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-            'form_params' => [
-                'grant_type' => env('SUNBET_GRANT_TYPE'),
-                'client_id' => env('SUNBET_ID'),
-                'client_secret' => env('SUNBET_SECRET'),
-                'username' => $ldapUser->email,
-                'password' => $request->password
-            ],
-        ])->getBody()->getContents());
-
-        $accessToken = $response->access_token;
 
         return $this->sendLoginResponse($request);
     }
@@ -189,32 +167,6 @@ class LoginController extends BaseController
                     return $this->sendLoginResponse($request);
                 }
             } else {
-                $cred = $request->validate([
-                    'email' => 'required|email|exists:sunbet_users',
-                    'password' => 'required'
-                ]);
-                if (!$cred) {
-                    $newUser = SunbetUser::updateOrCreate(
-                        [
-                            'email' => $request->email,
-                        ],
-                        [
-                            'name' => $request->name ?? null,
-                            'password' => Hash::make($request->password),
-                            'logged_at' => Carbon::now(),
-                        ]);
-                }
-                $client = new Client();
-                $response = json_decode($client->request('POST', 'https://sunapp1.ddev.site/oauth/token', [
-                    'form_params' => [
-                        'grant_type' => env('SUNBET_GRANT_TYPE'),
-                        'client_id' => env('SUNBET_ID'),
-                        'client_secret' => env('SUNBET_SECRET'),
-                        'username' => $request->email,
-                        'password' => $request->password
-                    ],
-                ])->getBody()->getContents());
-                $accessToken = $response->access_token;
                 return $this->sendLoginResponse($request);
             }
             $this->guard()->logout();
