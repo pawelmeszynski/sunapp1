@@ -37,13 +37,13 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/teams', 'Api\TeamsController@index');
 
-    Route::get('user', function (Request $request) {
+    Route::get('users', function (Request $request) {
         return $request->user();
     });
 });
 
-//Route::get('user', function (Request $request) {
-//    return $request->user();
+//Route::get('users', function (Request $request) {
+//    return $request->users();
 //});
 
 Route::post('signup', 'Api\UserController@signup');

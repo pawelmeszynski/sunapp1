@@ -2397,7 +2397,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
             }, setOpacity: function (a) {
                 CKEDITOR.env.ie && 9 > CKEDITOR.env.version ? (a = Math.round(100 * a), this.setStyle("filter", 100 <= a ? "" : "progid:DXImageTransform.Microsoft.Alpha(opacity\x3d" + a + ")")) : this.setStyle("opacity", a)
             }, unselectable: function () {
-                this.setStyles(CKEDITOR.tools.cssVendorPrefix("user-select",
+                this.setStyles(CKEDITOR.tools.cssVendorPrefix("users-select",
                     "none"));
                 if (CKEDITOR.env.ie) {
                     this.setAttribute("unselectable", "on");
@@ -12244,7 +12244,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
                         margin: 0,
                         padding: 0
                     });
-                    CKEDITOR.env.safari && k.setStyles(CKEDITOR.tools.cssVendorPrefix("user-select", "text"));
+                    CKEDITOR.env.safari && k.setStyles(CKEDITOR.tools.cssVendorPrefix("users-select", "text"));
                     (l = k.getParent().isReadOnly()) ? (k.setOpacity(0), k.setAttribute("contenteditable", !0)) : k.setStyle("ltr" == a.config.contentsLangDirection ?
                         "left" : "right", "-10000px");
                     a.on("selectionChange", h, null, null, 0);

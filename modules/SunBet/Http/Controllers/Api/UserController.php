@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    protected $prefix = 'sunbet:user';
+    protected $prefix = 'sunbet:users';
     protected $class = Model::class;
     protected $formClass = Form::class;
 
@@ -35,7 +35,7 @@ class UserController extends Controller
     }
 
     /**
-     * Handles user logins
+     * Handles users logins
      *
      * @return JsonResponse
      */
@@ -61,7 +61,7 @@ class UserController extends Controller
         $user->access_token = $token->accessToken;
 
         return response()->json([
-            "user" => $user
+            "users" => $user
         ],200);
     }
 

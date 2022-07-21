@@ -90,7 +90,7 @@ db-seeding:
     - mysql --version
     - php artisan migrate:fresh --seed
     - php artisan module:install --all
-    - mysqldump --host="${DB_HOST}" --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" > db.sql
+    - mysqldump --host="${DB_HOST}" --users="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" > db.sql
   artifacts:
     paths:
       - storage/logs # for debugging
@@ -115,7 +115,7 @@ phpunit:
     - php -v
     - sudo cp /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.bak
     - echo "" | sudo tee /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-    - mysql --host="${DB_HOST}" --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" < db.sql
+    - mysql --host="${DB_HOST}" --users="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" < db.sql
     - php artisan module:install --all --force
     - ./vendor/phpunit/phpunit/phpunit --version
     - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr

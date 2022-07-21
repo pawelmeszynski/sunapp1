@@ -71,11 +71,11 @@ class SunBetServiceProvider extends ModuleServiceProvider
 //    /**
 //     * @return SunbetUser
 //     */
-//    protected function mapUserToObject(array $user)
+//    protected function mapUserToObject(array $users)
 //    {
-//        return (new SunbetUser())->setRaw($user)->map([
-//            'id' => $user['id'],
-//            'email' => $user['email'],
+//        return (new SunbetUser())->setRaw($users)->map([
+//            'id' => $users['id'],
+//            'email' => $users['email'],
 //        ]);
 //    }
     public function boot(Router $router, Kernel $kernel)

@@ -9,15 +9,15 @@ class UserForm extends Form
     public function buildForm()
     {
         $this->add('name', 'text', [
-            'label' => trans('core::users.name'),
+            'label' => 'Name',
             'rules' => 'required',
         ]);
         $this->add('email', 'email', [
-            'label' => trans('core::users.email'),
-            'rules' => "required|email|unique:users,email,{$this->getModel()->email},email",
+            'label' => 'Email',
+            'rules' => "required|email|unique:sunbet_users,email,{$this->getModel()->email},email",
         ]);
         $this->add('password', 'password', [
-            'label' => trans('core::users.password'),
+            'label' => 'Password',
             'rules' => 'same:password_confirmation'
         ]);
         $this->add('points', 'number', [
@@ -25,18 +25,18 @@ class UserForm extends Form
             'attr' => ['readonly' => false, 'disabled' => true]
         ]);
         $this->add('password_confirmation', 'password', [
-            'label' => trans('core::users.password_confirmation'),
+            'label' => 'password_confirmation',
             'rules' => 'required|same:password',
             'vue-model-off' => true
         ]);
         if ($this->getModel()->is_ldap) {
             $this->modify('name', 'text', [
                 'attr' => ['disabled' => true, 'readonly' => true],
-                'label' => trans('core::users.name'),
+                'label' => 'Name',
                 'rules' => '',
             ], true);
             $this->modify('email', 'email', [
-                'label' => trans('core::users.email'),
+                'label' => 'Email',
                 'attr' => ['disabled' => true, 'readonly' => true],
             ], true);
             $this->modify('points', 'number', [
@@ -44,22 +44,12 @@ class UserForm extends Form
                 'attr' => ['disabled' => false, 'readonly' => false]
             ]);
             $this->modify('password', 'password', [
-                'label' => trans('core::users.password'),
+                'label' => 'Password',
                 'rules' => 'same:password_confirmation',
                 'attr' => ['readonly' => true]
             ], true);
             /*$this->remove('password');
             $this->remove('password_confirmation');*/
         }
-        $this->add('api_token', 'text', [
-            'label' => trans('core::users.api_token'),
-            'rules' => 'nullable|between:64,250',
-        ]);
-        // if ($this->getModel()->email_verified_at == null) {
-        $this->add('email_verify', 'checkbox', [
-            'label' => trans('core::users.activate_account'),
-            'value' => 1,
-            'checked' => true
-        ]);
     }
 }

@@ -178,7 +178,7 @@ nodejs_version: "16"
 # disable_settings_management: false
 # If true, ddev will not create CMS-specific settings files like
 # Drupal's settings.php/settings.ddev.php or TYPO3's AdditionalConfiguration.php
-# In this case the user must provide all such settings.
+# In this case the users must provide all such settings.
 
 # You can inject environment variables into the web container with:
 # web_environment:
@@ -187,7 +187,7 @@ nodejs_version: "16"
 
 # no_project_mount: false
 # (Experimental) If true, ddev will not mount the project into the web container;
-# the user is responsible for mounting it manually or via a script.
+# the users is responsible for mounting it manually or via a script.
 # This is to enable experimentation with alternate file mounting strategies.
 # For advanced users only!
 

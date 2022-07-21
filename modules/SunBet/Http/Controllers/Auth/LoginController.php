@@ -106,8 +106,8 @@ class LoginController extends BaseController
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
+        // to login and redirect the users back to the login form. Of course, when this
+        // users surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
@@ -229,7 +229,7 @@ class LoginController extends BaseController
     }
 
     /**
-     * The user has been authenticated.
+     * The users has been authenticated.
      *
      * @param Request $request
      * @param mixed $user

@@ -1933,7 +1933,7 @@ S2.define('select2/selection/allowClear',[
       return;
     }
 
-    var removeAll = this.options.get('translations').get('removeAllItems');   
+    var removeAll = this.options.get('translations').get('removeAllItems');
 
     var $remove = $(
       '<span class="select2-selection__clear" title="' + removeAll() +'">' +
@@ -2056,7 +2056,7 @@ S2.define('select2/selection/search',[
 
     // Try to detect the IE version should the `documentMode` property that
     // is stored on the document. This is only implemented in IE and is
-    // slightly cleaner than doing a user agent check.
+    // slightly cleaner than doing a users agent check.
     // This property is not available in Edge, but Edge also doesn't have
     // this bug.
     var msie = document.documentMode;
