@@ -47,7 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail, AuditableContract
      */
     protected $fillable = [
         'name',
-        'points',
         'email',
         'password',
         'google2fa_secret',

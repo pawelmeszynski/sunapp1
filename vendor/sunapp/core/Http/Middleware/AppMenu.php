@@ -95,7 +95,8 @@ class AppMenu
                     )->data(['icon' => 'feather icon-user-check']);
                 }
             }
-            if ( $ExtraFields || $SecurityLocks || $SecurityExceptions || $Access || $Audits) {
+
+            if ($ExtraFields || $SecurityLocks || $SecurityExceptions || $Access || $Audits) {
                 $settings = $menu->add(trans('core::module.settings'), [
                     'disableActivationByURL' => true
                 ])->data(['icon' => 'feather icon-settings'])->nickname('settings')->data('order', 100);

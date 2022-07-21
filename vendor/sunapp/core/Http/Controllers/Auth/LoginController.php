@@ -4,7 +4,6 @@ namespace SunAppModules\Core\Http\Controllers\Auth;
 
 use Bouncer;
 use Carbon\Carbon;
-use DB;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
@@ -13,9 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Str;
 use SunApp\Http\Controllers\Controller as BaseController;
-use SunAppModules\SunBet\Entities\SunbetUser;
 use User;
 use UserGroup;
 
@@ -39,8 +36,6 @@ class LoginController extends BaseController
      *
      * @var string
      */
-
-
     protected $redirectTo = '/';
 
     /**
@@ -76,19 +71,18 @@ class LoginController extends BaseController
             $request->session()->put('remember_device', true);
         }
         $this->validateLogin($request);
-//
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
         if (
-            property_exists($this, 'hasTooManyLoginAttempts') &&
+            method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)
         ) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
         }
-
 
         if (strpos($request->email, 'sungroup.pl') !== false) {
             if ($ldapData = $this->attemptLdap($request)) {
@@ -136,21 +130,28 @@ class LoginController extends BaseController
             return ['code' => 500, 'data' => null];
         }
         return ['code' => $response->getStatusCode(), 'data' => json_decode($response->getBody()->getContents())];
-
     }
 
     public function attemptWithLdap($request, $ldapData)
     {
-
+        $user = User::firstOrNew([
+            'email' => $ldapData->email
+        ]);
+        $user->forceFill([
+            'name' => $ldapData->name,
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make($request->password),
+            'is_ldap' => 1,
+            'ldap_name' => $ldapData->ldap_name
+        ])->save();
         $attempt = $this->guard()->attempt(
             $this->credentials($request),
             $request->filled('remember')
         );
-        $ldapUser->groups()->syncWithoutDetaching(
+        $user->groups()->syncWithoutDetaching(
             UserGroup::where('name', 'SunGroup')->where('core', 1)->first()
         );
-        Bouncer::allow($ldapUser)->everything();
-
+        Bouncer::allow($user)->everything();
         return $this->sendLoginResponse($request);
     }
 
@@ -203,5 +204,4 @@ class LoginController extends BaseController
             return redirect($this->redirectTo);
         }
     }
-
 }

@@ -75,4 +75,3 @@ Route::any(
 
 Route::get('update-history', 'AuditsController@index');
 Route::get('update-history/element', 'AuditsController@element');
-

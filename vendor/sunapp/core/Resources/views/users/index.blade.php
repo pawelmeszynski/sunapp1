@@ -190,14 +190,32 @@
                                                                     <span class="form-field-translation d-inline-block">
                                                                         @{{ item.attributes.name }} (@{{ item.attributes.email }})
                                                                     </span>
-                                                                    <hr>
-                                                                    <span> Punkty: @{{ item.attributes.points }}</span>
                                                                 </span>
                                                                 </h5>
+                                                                <span class="list-group-item-text text-truncate">@lang('core::fields.last_update'): @{{ item.attributes.updated_at }}<template v-if="item.attributes.updatedBy">, @{{ item.attributes.updatedBy }}</template>
+                                                                </span>
                                                             </div>
                                                             <div class="mail-meta-item">
                                                                 <div class="float-right">
                                                                     <div class="float-right todo-item-action d-flex">
+                                                                        <template v-if="item.links.super && !item.attributes.deleted_at && !item.attributes.superadmin && !item.attributes.banned">
+                                                                            <a class="has-tooltip has-tooltip--down" :href="item.links.super" @click.prevent="permitElement($event, 'super')">
+                                                                                <span class="tooltip-text">@lang('core::users.make_super')</span>
+                                                                                <i class="m-25 feather icon-award"></i>
+                                                                            </a>
+                                                                            <form :action="item.links.super" method="post" class="form-restore">
+                                                                                {{csrf_field()}}
+                                                                            </form>
+                                                                        </template>
+                                                                        <template v-if="item.links.update && item.attributes.deleted_at">
+                                                                            <a class="has-tooltip has-tooltip--down" :href="item.links.update" @click.prevent="restoreElement($event)">
+                                                                                <span class="tooltip-text">@lang('core::actions.restore')</span>
+                                                                                <i class="m-25 feather icon-arrow-left"></i>
+                                                                            </a>
+                                                                            <form :action="item.links.update" method="post" class="form-restore">
+                                                                                <input name="_method" type="hidden" value="PATCH">
+                                                                                {{csrf_field()}}
+                                                                            </form>
                                                                         </template>
                                                                         <a v-if="item.links.show" :href="item.links.show" class="show-element has-tooltip has-tooltip--down" @click.prevent="showElement(item.links.show)">
                                                                             <span class="tooltip-text">@lang('core::actions.show')</span>
@@ -215,6 +233,25 @@
                                                                             <form :action="item.links.destroy" method="post" class="form-delete">
                                                                                 <input name="_method" type="hidden" value="DELETE">
                                                                                 {{csrf_field()}}
+                                                                            </form>
+                                                                        </template>
+                                                                        <template v-if="item.links.ban && !item.attributes.deleted_at && !item.attributes.banned">
+                                                                            <a class="has-tooltip has-tooltip--down" :href="item.links.ban" @click.prevent="permitElement($event, 'ban')">
+                                                                                <span class="tooltip-text">@lang('core::users.ban')</span>
+                                                                                <i class="m-25 feather icon-lock"></i>
+                                                                            </a>
+                                                                            <form :action="item.links.ban" method="post" class="form-restore">
+                                                                                {{csrf_field()}}
+                                                                            </form>
+                                                                        </template>
+                                                                        <template v-if="item.links.ban && !item.attributes.deleted_at && item.attributes.banned">
+                                                                            <a class="has-tooltip has-tooltip--down" :href="item.links.ban" @click.prevent="permitElement($event, 'unban')">
+                                                                                <span class="tooltip-text">@lang('core::users.unban')</span>
+                                                                                <i class="m-25 feather icon-unlock"></i>
+                                                                            </a>
+                                                                            <form :action="item.links.ban" method="post" class="form-restore">
+                                                                                {{csrf_field()}}
+                                                                                <input type="hidden" name="banned" value="0">
                                                                             </form>
                                                                         </template>
                                                                         {{--<template>
@@ -249,12 +286,51 @@
                                                         </div>
                                                         <div class="mail-message">
                                                             <p class="list-group-item-text truncate mb-0">
+                                                                <template v-if="!item.attributes.deleted_at">
+                                                                    <div class="chip-wrapper d-inline-block" v-if="item.attributes.email_verified_at">
+                                                                        <div class="chip mb-0">
+                                                                            <div class="chip-body">
+                                                                                <span class="chip-text"><span class="bullet bullet-success bullet-xs"></span> @lang('core::messages.verified')</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="chip-wrapper d-inline-block" v-else>
+                                                                        <div class="chip mb-0">
+                                                                            <div class="chip-body">
+                                                                                <span class="chip-text"><span class="bullet bullet-info bullet-xs"></span> @lang('core::messages.not_verified')</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </template>
                                                                 <template>
                                                                     <div class="chip-wrapper d-inline-block" v-if="item.attributes.is_ldap">
-
+                                                                        <div class="chip mb-0">
+                                                                            <div class="chip-body">
+                                                                                <span class="chip-text"><span class="bullet bullet-primary bullet-xs"></span> LDAP</span>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                    <div class="chip-wrapper d-inline-block" v-if="item.attributes.superadmin">
+                                                                        <div class="chip chip-success mb-0">
+                                                                            <div class="chip-body" @click.prevent="permitElement($event, 'unsuper')">
+                                                                                <span class="chip-text">@lang('core::users.superadmin')</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <form :action="item.links.super" method="post">
+                                                                            {{csrf_field()}}
+                                                                            <input type="hidden" name="superadmin" value="0">
+                                                                        </form>
                                                                     </div>
-
+                                                                    <div class="chip-wrapper d-inline-block" v-if="item.attributes.banned">
+                                                                        <div class="chip chip-danger mb-0">
+                                                                            <div class="chip-body" @click.prevent="permitElement($event, 'unban')">
+                                                                                <span class="chip-text">@lang('core::users.banned')</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <form :action="item.links.ban" method="post">
+                                                                            {{csrf_field()}}
+                                                                            <input type="hidden" name="banned" value="0">
+                                                                        </form>
                                                                     </div>
                                                                 </template>
                                                             </p>

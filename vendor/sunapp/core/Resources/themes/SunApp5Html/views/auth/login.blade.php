@@ -20,9 +20,7 @@
                                 <form method="POST" action="{{ route('SunApp::login') }}">
                                     @csrf
                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                               id="user-email" name="email" placeholder="@lang('auth.email')"
-                                               value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="user-email" name="email"  placeholder="@lang('auth.email')" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         <div class="form-control-position">
                                             <i class="feather icon-user"></i>
                                         </div>
@@ -33,11 +31,9 @@
                                         </span>
                                         @enderror
                                     </fieldset>
+
                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                        <input type="password"
-                                               class="form-control @error('password') is-invalid @enderror"
-                                               id="user-password" name="password" placeholder="@lang('auth.password')"
-                                               required autocomplete="current-password">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="user-password" name="password"  placeholder="@lang('auth.password')" required autocomplete="current-password">
                                         <div class="form-control-position">
                                             <i class="feather icon-lock"></i>
                                         </div>
@@ -52,8 +48,7 @@
                                         <div class="text-left">
                                             <fieldset class="checkbox">
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" name="remember"
-                                                           id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                     <span class="vs-checkbox">
                                                                         <span class="vs-checkbox--check">
                                                                             <i class="vs-icon feather icon-check"></i>
@@ -64,8 +59,7 @@
                                             </fieldset>
                                             <fieldset class="checkbox">
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" name="remember_device"
-                                                           id="remember_device" {{ old('remember_device') ? 'checked' : '' }}>
+                                                    <input type="checkbox" name="remember_device" id="remember_device" {{ old('remember_device') ? 'checked' : '' }}>
                                                     <span class="vs-checkbox">
                                                                         <span class="vs-checkbox--check">
                                                                             <i class="vs-icon feather icon-check"></i>
@@ -75,18 +69,12 @@
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <div class="text-right"><a href="{{route('SunApp::password.request')}}"
-                                                                   class="card-link">@lang('auth.forgot_password')</a>
-                                        </div>
-
+                                        <div class="text-right"><a href="{{route('SunApp::password.request')}}" class="card-link">@lang('auth.forgot_password')</a></div>
                                     </div>
                                     @if(Route::has('SunApp::register'))
-                                        <a href="{{route('SunApp::register')}}"
-                                           class="btn btn-outline-primary float-left btn-inline">@lang('auth.register')</a>
+                                        <a href="{{route('SunApp::register')}}" class="btn btn-outline-primary float-left btn-inline">@lang('auth.register')</a>
                                     @endif
-                                    <button type="submit"
-                                            class="btn btn-primary float-right btn-inline">@lang('auth.login')</button>
-                             
+                                    <button type="submit" class="btn btn-primary float-right btn-inline">@lang('auth.login')</button>
                                 </form>
                             </div>
                         </div>

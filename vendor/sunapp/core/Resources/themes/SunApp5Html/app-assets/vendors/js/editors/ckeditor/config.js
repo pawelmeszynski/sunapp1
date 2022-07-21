@@ -6,6 +6,8 @@
 CKEDITOR.editorConfig = function( config ) {
     config.allowedContent = true;
     config.removePlugins = 'save';
+    config.htmlEncodeOutput = false;
+    config.entities = false;
 };
 
 

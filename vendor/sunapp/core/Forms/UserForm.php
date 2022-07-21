@@ -34,10 +34,6 @@ class UserForm extends Form
             'label' => trans('core::users.password'),
             'rules' => 'same:password_confirmation'
         ]);
-        $this->add('points', 'number', [
-            'label' => 'points',
-            'attr' =>['readonly' => false, 'disabled' => true]
-        ]);
         $this->add('password_confirmation', 'password', [
             'label' => trans('core::users.password_confirmation'),
             'rules' => 'required|same:password',
@@ -65,10 +61,6 @@ class UserForm extends Form
                 'label' => trans('core::users.email'),
                 'attr' => ['disabled' => true, 'readonly' => true],
             ], true);
-            $this->modify('points', 'number', [
-                'label' => 'points',
-                'attr' => ['disabled' => false, 'readonly' => false]
-            ]);
             $this->modify('password', 'password', [
                 'label' => trans('core::users.password'),
                 'rules' => 'same:password_confirmation',
