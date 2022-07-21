@@ -37,6 +37,9 @@ Route::get('/fetch-competitions', function () {
 Route::get('/fetch-data', function () {
     dump(Artisan::call('data:fetch'));
 });
+Route::get('/passport-keys', function () {
+    dump(Artisan::call('passport:keys'));
+});
 Route::get('/fetch-teams', function () {
     dump(Artisan::call('teams:fetch'));
 });
