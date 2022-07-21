@@ -50,5 +50,5 @@ Route::get('sunbet/login', 'Auth\LoginController@showLoginForm')->name('.login')
 Route::get('redirect','Auth\LoginController@redirectToProvider')->name('.redirect');
 
 Route::get('test', function(){
-    dd(request());
+    dd(request()->all());
 });
