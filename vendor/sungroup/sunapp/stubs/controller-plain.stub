@@ -1,7 +1,0 @@
-<?php
-
-namespace $CLASS_NAMESPACE$;
-
-class $CLASS$ extends \Controller
-{
-}
