@@ -161,6 +161,13 @@ class LoginController extends BaseController
 //        );
 
         $client = new Client();
+        dd(['form_params' => [
+        'grant_type' => env('SUNBET_GRANT_TYPE'),
+        'client_id' => env('SUNBET_ID'),
+        'client_secret' => env('SUNBET_SECRET'),
+        'username' => $request->email,
+        'password' => $request->password
+    ]]);
         $response = json_decode($client->request('POST', 'https://sunpame-sunapp.test.sungroup.pl/oauth/token', [
             'form_params' => [
                 'grant_type' => env('SUNBET_GRANT_TYPE'),
